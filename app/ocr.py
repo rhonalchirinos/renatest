@@ -38,4 +38,13 @@ def procesar_imagen(image_bytes: bytes):
     reader = _get_reader()
     resultados = reader.readtext(img, detail=0)
 
+    print("=== TEXTOS ENCONTRADOS ===")
+    for i, t in enumerate(resultados, 1):
+        print(f"{i}: {t}")
+    print("=== BUSCANDO KEYWORDS ===")
+    upper_textos = [t.upper() for t in resultados]
+    for kw in KEYWORDS:
+        encontrado = any(kw in t for t in upper_textos)
+        print(f"  {kw}: {'✓' if encontrado else '✗'}")
+
     return {"verificado": verificar(resultados)}
