@@ -12,9 +12,7 @@ class ProcesarRequest(BaseModel):
 
 
 class ProcesarResponse(BaseModel):
-    texto: list[str]
-    dni_encontrado: bool
-    cuil_encontrado: bool
+    verificado: bool
 
 
 @app.get("/")
@@ -27,5 +25,5 @@ def procesar(req: ProcesarRequest):
     image_bytes = base64.b64decode(req.image_base64)
     resultado = procesar_imagen(image_bytes)
     if resultado is None:
-        return {"error": "No se pudo decodificar la imagen"}
+        return {"verificado": False}
     return resultado

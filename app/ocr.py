@@ -14,18 +14,15 @@ def _get_reader():
     return _reader
 
 
-def buscar_dni(textos):
-    for linea in textos:
-        if "DNI" in linea.upper():
-            return True
-    return False
+KEYWORDS = ["SURNAME", "NAME", "OF. IDENT", "DOCUMENT", "CUIL", "FECHA DE RADICACION"]
 
 
-def buscar_cuil(textos):
-    for linea in textos:
-        if "CUIL" in linea.upper():
-            return True
-    return False
+def verificar(textos):
+    upper_textos = [linea.upper() for linea in textos]
+    for kw in KEYWORDS:
+        if not any(kw in linea for linea in upper_textos):
+            return False
+    return True
 
 
 def procesar_imagen(image_bytes: bytes):
@@ -41,8 +38,4 @@ def procesar_imagen(image_bytes: bytes):
     reader = _get_reader()
     resultados = reader.readtext(img, detail=0)
 
-    return {
-        "texto": resultados,
-        "dni_encontrado": buscar_dni(resultados),
-        "cuil_encontrado": buscar_cuil(resultados),
-    }
+    return {"verificado": verificar(resultados)}
