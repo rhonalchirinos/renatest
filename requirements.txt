@@ -1,0 +1,8 @@
+fastapi
+uvicorn
+certifi
+easyocr
+mrz
+opencv-python-headless
+Pillow
+numpy
