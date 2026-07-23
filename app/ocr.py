@@ -14,7 +14,7 @@ def _get_reader():
     return _reader
 
 
-KEYWORDS = ["SURNAME", "NAME", "OF. IDENT", "DOCUMENT", "CUIL", "FECHA DE RADICACION"]
+KEYWORDS = ["SURNAME", "NAME", "OF. IDENT", "DOCUMENT", "CUIL", "FECHA DE RADICACION", "TRAMITE", "DOCUMENTO", "DOCUMENTO TRAMITE Nª"]
 
 
 def verificar(textos):
