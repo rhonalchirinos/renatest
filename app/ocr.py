@@ -17,10 +17,15 @@ def _get_reader():
 KEYWORDS = ["SURNAME", "NAME", "OF. IDENT", "DOCUMENT", "CUIL", "FECHA DE RADICACION", "TRAMITE", "DOCUMENTO", "DOCUMENTO TRAMITE Nª"]
 
 
+def _normalizar(texto):
+    return texto.upper().replace(" ", "")
+
+
 def verificar(textos):
-    upper_textos = [linea.upper() for linea in textos]
+    norm_textos = [_normalizar(t) for t in textos]
     for kw in KEYWORDS:
-        if not any(kw in linea for linea in upper_textos):
+        kw_norm = _normalizar(kw)
+        if not any(kw_norm in t for t in norm_textos):
             return False
     return True
 
@@ -42,9 +47,10 @@ def procesar_imagen(image_bytes: bytes):
     for i, t in enumerate(resultados, 1):
         print(f"{i}: {t}")
     print("=== BUSCANDO KEYWORDS ===")
-    upper_textos = [t.upper() for t in resultados]
+    norm_textos = [_normalizar(t) for t in resultados]
     for kw in KEYWORDS:
-        encontrado = any(kw in t for t in upper_textos)
+        kw_norm = _normalizar(kw)
+        encontrado = any(kw_norm in t for t in norm_textos)
         print(f"  {kw}: {'✓' if encontrado else '✗'}")
 
     return {"verificado": verificar(resultados)}
