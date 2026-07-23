@@ -25,9 +25,9 @@ def verificar(textos):
     norm_textos = [_normalizar(t) for t in textos]
     for kw in KEYWORDS:
         kw_norm = _normalizar(kw)
-        if not any(kw_norm in t for t in norm_textos):
-            return False
-    return True
+        if any(kw_norm in t for t in norm_textos):
+            return True
+    return False
 
 
 def procesar_imagen(image_bytes: bytes):
